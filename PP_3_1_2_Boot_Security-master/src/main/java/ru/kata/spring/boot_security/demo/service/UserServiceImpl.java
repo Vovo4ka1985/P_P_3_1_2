@@ -16,10 +16,10 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    @Autowired
+
     private PasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private final RoleRepository roleRepository;
+
+    private  RoleRepository roleRepository;
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
@@ -29,9 +29,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
+       /* Set<Role> roles = new HashSet<>();
         roles.add(roleRepository.getOne(1L));
         user.setRoles(roles);
+        */
         userRepository.save(user);
     }
 
@@ -46,13 +47,13 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public User getUser(long id) {
-        return userRepository.getOne(id);
+        return userRepository.getById(id);
     }
 
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+    //@Override
+    //public User findByUsername(String username) {
+        //return userRepository.findByUsername(username);
+    //}
 
     @Override
     public List<Role> listRoles() {

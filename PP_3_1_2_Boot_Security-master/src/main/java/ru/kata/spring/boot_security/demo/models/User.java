@@ -30,9 +30,9 @@ public class User implements UserDetails {
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "users_roles",
+    joinColumns = @JoinColumn(name = "users_id"),
+    inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
 
 
@@ -99,7 +99,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));//getRoles();
+        return getRoles(); //Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));//getRoles();
     }
 
     @Override

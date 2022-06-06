@@ -32,24 +32,24 @@ public class MainController {
     // Получим одного человека из ДАО и передадим в отображение
     public String showById (@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
-        return "users";
+        return "admin";
     }
     @GetMapping("/create")
-    public String newUserForm (@ModelAttribute("user") User user, Model model) {
+    public String newUserForm (User user, Model model) { //@ModelAttribute("user")
         List<Role> listRoles = userService.listRoles();
         model.addAttribute("listRoles", listRoles);
         //model.addAttribute("user", new User());
         return "create";
     }
     @PostMapping("/create")
-    public String create(@ModelAttribute("user") User user) {
+    public String create(User user) { //@ModelAttribute("user")
         userService.addUser(user);
-        return "redirect:/users";
+        return "redirect:/admin";
     }
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         userService.deleteUser(id);
-        return "redirect:/users";
+        return "redirect:/admin";
     }
     @GetMapping("/update/{id}")
     public String edit (@PathVariable("id") long id,Model model) {
